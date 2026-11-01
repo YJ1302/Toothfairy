@@ -1,38 +1,38 @@
 import Link from "next/link";
-import { SPARKLES, TOOTH, WING_LOW, WING_UP, sparkle } from "./sprig";
+import { useId } from "react";
+import { MARK_BODY, MARK_GAPS, MARK_GAP_WIDTH, MARK_STAR, MARK_SWOOSH, MARK_VIEWBOX } from "./brand";
 
-export function LogoMark({ size = 40, light = false }: { size?: number; light?: boolean }) {
-  const wings = (
-    <>
-      <path d={WING_UP} />
-      <path d={WING_LOW} />
-    </>
-  );
+export function LogoMark({ size = 40, light = false, bold = false }: { size?: number; light?: boolean; bold?: boolean }) {
+  const id = useId().replace(/:/g, "");
+  const gap = bold ? MARK_GAP_WIDTH * 1.7 : MARK_GAP_WIDTH;
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
-      <g fill={light ? "#6A4BB8" : "#DDD0F6"} stroke={light ? "#C9B6EF" : "#8B6CCF"} strokeWidth={1} strokeLinejoin="round">
-        {wings}
-        <g transform="translate(64 0) scale(-1 1)">{wings}</g>
-      </g>
-      <path d={TOOTH} fill={light ? "#C9B6EF" : "#8B6CCF"} />
-      <g fill={light ? "#E4D9FA" : "#6A4BB8"}>
-        {SPARKLES.map(([x, y, r]) => (
-          <path key={`${x}-${y}`} d={sparkle(x, y, r)} />
-        ))}
-      </g>
+    <svg width={size} height={(size * 92) / 100} viewBox={MARK_VIEWBOX} aria-hidden="true">
+      <defs>
+        <mask id={`cut-${id}`} maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="92">
+          <rect width="100" height="92" fill="#fff" />
+          <g fill="none" stroke="#000" strokeWidth={gap} strokeLinecap="round">
+            {MARK_GAPS.map((d) => (
+              <path key={d} d={d} />
+            ))}
+            {!bold && <path d={MARK_SWOOSH} strokeWidth={1.7} />}
+          </g>
+        </mask>
+      </defs>
+      <path d={MARK_BODY} fill={light ? "#FFFFFF" : "#8B6CCF"} mask={`url(#cut-${id})`} />
+      <path d={MARK_STAR} fill={light ? "#A88DDF" : "#6A4BB8"} />
     </svg>
   );
 }
 
 export function Logo({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
   return (
-    <Link href="/" className="inline-flex items-center gap-2.5 rounded-xl" aria-label="Tooth Fairy, home">
-      <LogoMark size={compact ? 36 : 44} light={light} />
+    <Link href="/" className="inline-flex items-center gap-2.5 rounded-xl" aria-label="Tooth Fairy Pediatric Dentistry, home">
+      <LogoMark size={compact ? 38 : 46} light={light} bold={compact} />
       <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.38rem] ${light ? "text-white" : "text-ink"}`}>Tooth Fairy</span>
+        <span className={`font-logo text-[1.45rem] ${light ? "text-white" : "text-ink"}`}>Tooth Fairy</span>
         {!compact && (
-          <span className={`mt-1 text-[0.78rem] font-semibold tracking-wide ${light ? "text-lav-300" : "text-lav-500"}`}>
-            Pediatric Dentistry
+          <span className={`mt-1.5 text-[0.62rem] font-semibold tracking-[0.13em] ${light ? "text-lav-300" : "text-lav-500"}`}>
+            PEDIATRIC DENTISTRY
           </span>
         )}
       </span>

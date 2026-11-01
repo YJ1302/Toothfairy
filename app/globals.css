@@ -1,9 +1,10 @@
-@import "@fontsource/young-serif/400.css";
+@import "@fontsource-variable/fraunces/full.css";
 @import "@fontsource-variable/figtree/index.css";
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Young Serif", Georgia, serif;
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-logo: "Fraunces Variable", Georgia, serif;
   --font-sans: "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --color-page: #fbf9ff;
@@ -41,9 +42,12 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 {
+  h1, h2, h3, .font-display {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-variation-settings: "SOFT" 50, "WONK" 0;
+  }
+  h1, h2, h3 {
+    font-weight: 500;
     line-height: 1.12;
     letter-spacing: -0.01em;
     text-wrap: balance;
@@ -58,6 +62,12 @@
 }
 
 @layer components {
+  .font-logo {
+    font-family: var(--font-logo);
+    font-weight: 560;
+    font-variation-settings: "opsz" 60, "SOFT" 50, "WONK" 0;
+    letter-spacing: -0.005em;
+  }
   .btn {
     display: inline-flex;
     align-items: center;

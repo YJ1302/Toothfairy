@@ -52,4 +52,17 @@ All in `lib/data.ts` unless noted:
 
 ## Brand files
 
-`brand/` has the logo (a tooth with fairy wings and sparkles) as SVG and PNG: the mark on its own, the horizontal lockup, and a version for dark backgrounds. Colours: lavender `#8B6CCF`, deep lavender `#6A4BB8`, wing lavender `#DDD0F6`, plum ink `#2E2445`, white. Fonts: Young Serif (headings) and Figtree (text), both free.
+`brand/` holds the approved logo: a tooth formed by two butterfly wings, with a sparkle between the roots.
+
+| File | Use |
+| --- | --- |
+| `tooth-fairy-logo.svg` / `.png` | Main logo for white or light backgrounds |
+| `tooth-fairy-logo-on-dark.svg` / `.png` | On a deep plum background |
+| `tooth-fairy-logo-white.svg` / `.png` | All-white, for photos and coloured backgrounds |
+| `tooth-fairy-mark.svg` / `.png` | Symbol only (social media profile, stamp) |
+| `tooth-fairy-mark-white.svg` / `.png` | White symbol only |
+| `tooth-fairy-app-icon.svg` / `.png` | Rounded square icon (WhatsApp Business, app icon) |
+
+SVG files are vectors with the lettering converted to outlines, so they print sharp at any size and don't need the fonts installed. Send these to printers and signboard makers.
+
+Colours: lavender `#8B6CCF`, deep lavender `#6A4BB8`, plum `#2E2445`, white. Fonts: Fraunces (logo and headings) and Figtree (text and the "Pediatric Dentistry" line), both free from Google Fonts.
