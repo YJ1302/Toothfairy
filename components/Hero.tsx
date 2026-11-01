@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarCheck, Check, HeartHandshake, Pill, Smile } from "lucide-react";
-import { Mascot } from "./Mascot";
+import { AnimatedMark } from "./AnimatedMark";
 import { CLINIC } from "@/lib/data";
 
 export function Hero() {
@@ -91,11 +91,11 @@ export function Hero() {
             aria-hidden="true"
           />
           <motion.div
-            className="absolute inset-[12%]"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-[15%]"
+            animate={{ y: [0, -9, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
           >
-            <Mascot look={look} className="h-full w-full drop-shadow-[0_18px_24px_rgba(106,75,184,0.18)]" />
+            <AnimatedMark tilt={look.x} className="h-full w-full drop-shadow-[0_18px_24px_rgba(106,75,184,0.2)]" />
           </motion.div>
 
           <motion.div
