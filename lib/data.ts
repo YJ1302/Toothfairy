@@ -17,38 +17,45 @@ export const CLINIC = {
   ],
 };
 
-export type ServiceGroup = { title: string; blurb: string; items: { name: string; text: string }[] };
+export type Service = {
+  icon: "checkup" | "pain" | "injury" | "protect" | "baby" | "habit";
+  title: string;
+  text: string;
+  urgent?: boolean;
+};
 
-export const SERVICES: ServiceGroup[] = [
+// Written for parents: named by what they notice, not by clinical terms.
+export const SERVICES: Service[] = [
   {
-    title: "Keep teeth healthy",
-    blurb: "Most visits are about stopping problems before they start.",
-    items: [
-      { name: "Check-ups and cleaning", text: "A gentle look at every tooth, polishing, and a chat about brushing." },
-      { name: "Fluoride varnish", text: "A quick paint-on coat that makes enamel harder for cavities to break through." },
-      { name: "Pit and fissure sealants", text: "A thin seal over the deep grooves of back teeth, where food likes to hide." },
-      { name: "Diet and brushing guidance", text: "Practical advice on snacks, bottles, and the right toothpaste for each age." },
-    ],
+    icon: "checkup",
+    title: "Check-ups and cleaning",
+    text: "A gentle look at every tooth and a polish, every six months.",
   },
   {
-    title: "Treat problems early",
-    blurb: "Milk teeth hold space for adult teeth, so we save them where we can.",
-    items: [
-      { name: "Tooth-coloured fillings", text: "White fillings that match your child's teeth." },
-      { name: "Milk tooth root canal", text: "Pulpotomy and pulpectomy to save an infected baby tooth." },
-      { name: "Crowns for children", text: "Strong caps for badly decayed back teeth." },
-      { name: "Gentle extractions", text: "When a tooth can't be saved, removed calmly with numbing first." },
-    ],
+    icon: "protect",
+    title: "Protection from cavities",
+    text: "Fluoride and a thin seal on back teeth to keep decay away.",
   },
   {
-    title: "Guide growing smiles",
-    blurb: "Spotting bite and habit issues early makes them easier to fix.",
-    items: [
-      { name: "Space maintainers", text: "Hold the gap open after a milk tooth is lost too early." },
-      { name: "Habit-breaking appliances", text: "Help with thumb sucking and tongue thrusting." },
-      { name: "Early orthodontic check", text: "A first look at jaw growth and crowding around age seven." },
-      { name: "Dental emergencies", text: "Knocked-out or chipped teeth and sudden toothaches, seen the same day." },
-    ],
+    icon: "pain",
+    title: "Toothache or tooth decay",
+    text: "We find the cause and fix it with a tooth-coloured filling.",
+  },
+  {
+    icon: "baby",
+    title: "Saving baby teeth",
+    text: "Baby teeth hold space for adult teeth, so we save them when we can.",
+  },
+  {
+    icon: "injury",
+    title: "Broken or knocked-out tooth",
+    text: "Call us straight away. Injuries are seen the same day.",
+    urgent: true,
+  },
+  {
+    icon: "habit",
+    title: "Thumb sucking and crooked teeth",
+    text: "Early help with habits and a check on how the teeth are growing.",
   },
 ];
 

@@ -1,10 +1,19 @@
 import Link from "next/link";
-import { CalendarCheck, Check, ChevronRight, Clock, MapPin, Moon, Phone, Sun, Sunrise } from "lucide-react";
+import { Baby, Bandage, CalendarCheck, Check, ChevronRight, Clock, Hand, MapPin, Moon, Phone, ShieldCheck, Stethoscope, Sun, Sunrise, Zap } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Hero } from "@/components/Hero";
 import { LogoMark } from "@/components/Logo";
 import { CLINIC, FAQ, FIRST_VISIT, SERVICES } from "@/lib/data";
+
+const SERVICE_ICON = {
+  checkup: Stethoscope,
+  protect: ShieldCheck,
+  pain: Zap,
+  baby: Baby,
+  injury: Bandage,
+  habit: Hand,
+};
 
 export default function Home() {
   return (
@@ -17,27 +26,42 @@ export default function Home() {
         <section id="services" className="scroll-mt-20 bg-white py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-2xl">
-              <h2 className="text-[2.2rem] sm:text-5xl">Everything a growing smile needs</h2>
-              <p className="mt-4 text-lg text-ink-2">
-                From the first check-up to the last milk tooth, treatment is planned around your child&apos;s age, comfort and
-                growth.
-              </p>
+              <h2 className="text-[2.2rem] sm:text-5xl">How we can help your child</h2>
+              <p className="mt-4 text-lg text-ink-2">Everything your child&apos;s teeth need, from the first tooth to the teenage years.</p>
             </div>
-            <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
-              {SERVICES.map((g) => (
-                <div key={g.title}>
-                  <h3 className="text-2xl text-lav-700">{g.title}</h3>
-                  <p className="mt-2 text-[0.97rem] text-ink-2">{g.blurb}</p>
-                  <ul className="mt-6 divide-y divide-line border-y border-line">
-                    {g.items.map((s) => (
-                      <li key={s.name} className="py-4">
-                        <p className="font-semibold">{s.name}</p>
-                        <p className="mt-1 text-[0.95rem] text-ink-2">{s.text}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <ul className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+              {SERVICES.map((s) => {
+                const Icon = SERVICE_ICON[s.icon];
+                return (
+                  <li key={s.title} className="flex gap-4">
+                    <span
+                      className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${
+                        s.urgent ? "bg-rose-bg text-rose" : "bg-lav-100 text-lav-600"
+                      }`}
+                    >
+                      <Icon size={26} strokeWidth={1.8} aria-hidden="true" />
+                    </span>
+                    <div className="pt-1">
+                      <h3 className="font-sans text-lg font-semibold leading-snug text-ink">{s.title}</h3>
+                      <p className="mt-1 text-ink-2">{s.text}</p>
+                      {s.urgent && (
+                        <a href={CLINIC.phoneHref} className="mt-2 inline-flex items-center gap-1.5 font-semibold text-rose hover:underline">
+                          <Phone size={16} aria-hidden="true" /> Call {CLINIC.phoneDisplay}
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-14 flex flex-col items-start gap-4 rounded-3xl bg-lav-50 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <p className="text-lg">
+                <span className="font-semibold">Not sure what your child needs?</span>{" "}
+                <span className="text-ink-2">Book a check-up and {CLINIC.doctorShort} will explain everything.</span>
+              </p>
+              <Link href="/book" className="btn btn-primary shrink-0">
+                <CalendarCheck size={18} /> Book a check-up
+              </Link>
             </div>
           </div>
         </section>
