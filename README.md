@@ -42,6 +42,18 @@ All in `lib/data.ts` unless noted:
 - The doctor's photo (the "AK" block in `app/page.tsx`, doctor section)
 - Clinic hours
 
+## Connect the Google Sheet (optional)
+
+The site works on its own with browser storage. To save bookings and doses in the clinic's Google Sheet:
+
+1. Create a Google Sheet (any name). Open **Extensions > Apps Script**, paste `apps-script/Code.gs`, save.
+2. **Project Settings > Script properties**: add `KEY` with a long random secret.
+3. Run the `setup` function once and approve the permissions. It creates the `Bookings` and `Doses` tabs.
+4. **Deploy > New deployment > Web app**: Execute as **Me**, Who has access **Anyone**. Copy the web app URL (ends in `/exec`).
+5. In Vercel, **Settings > Environment Variables**: `SHEET_URL` = the web app URL, `SHEET_KEY` = the same secret. Redeploy.
+
+The browser never sees the URL or the key: it calls `/api/sheet`, which adds them on the server. With the variables missing, the site stays in browser-only demo mode. The patient list and medicines are still the invented ones in `lib/data.ts`. Use this only for demo or pilot data until real sign-in exists: the dashboard has no real login yet.
+
 ## Next phase (after approval)
 
 1. Supabase project: Google sign-in for parents, email sign-in for the clinic
