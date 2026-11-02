@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Mascot } from "@/components/Mascot";
+import { AnimatedMark } from "@/components/AnimatedMark";
 
 export default function LoginPage() {
   return (
@@ -68,16 +68,10 @@ function Login() {
         <Logo />
         <div className="relative mx-auto aspect-square w-full max-w-[400px]">
           <div className="absolute inset-[4%] rounded-full bg-white/60" aria-hidden="true" />
-          <Mascot
-            className="relative h-full w-full"
-            look={look}
-            covered={focus === "password" && !show && !success}
-            happy={success}
-            title="The Tooth Fairy mascot, watching you sign in"
-          />
+          <AnimatedMark className="relative h-full w-full" tilt={look.x} />
         </div>
         <p className="max-w-sm text-ink-2">
-          Our tooth fairy keeps an eye on your child&apos;s medicines. Not on your password, though.
+          Our tooth fairy keeps your child&apos;s medicines on track, and your sign-in private.
         </p>
       </div>
 
@@ -93,7 +87,7 @@ function Login() {
 
         <div className="mx-auto flex w-full max-w-[420px] flex-1 flex-col justify-center py-10">
           <div className="mx-auto mb-4 h-28 w-28 lg:hidden">
-            <Mascot look={look} covered={focus === "password" && !show && !success} happy={success} className="h-full w-full" />
+            <AnimatedMark tilt={look.x} className="h-full w-full" />
           </div>
           <h1 className="text-[2.1rem] sm:text-[2.5rem]">{role === "parent" ? "Welcome back" : "Clinic sign in"}</h1>
           <p className="mt-2 text-ink-2">

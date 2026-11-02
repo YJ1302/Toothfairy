@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Brush, CalendarDays, Check, Droplet, Moon, Phone, Pill, Sun, Sunrise, Undo2 } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
-import { Mascot } from "@/components/Mascot";
+import { AnimatedMark } from "@/components/AnimatedMark";
 import {
   CLINIC,
   PATIENTS,
@@ -170,7 +170,7 @@ function Today({ child, now, log, toggle }: { child: Child; now: Date; log: Reco
             className="overflow-hidden"
           >
             <div className="mt-5 flex items-center gap-4 rounded-2xl bg-mint-bg p-4">
-              <Mascot happy className="h-16 w-16 shrink-0" grow />
+              <AnimatedMark className="h-16 w-16 shrink-0" />
               <p className="text-[0.97rem] text-[#1d5e45]">
                 All done for today. {CLINIC.doctorShort} can see that {first}&apos;s course is on track.
               </p>

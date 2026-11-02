@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, CalendarCheck, Check, ChevronLeft, ChevronRight, Moon, Sun } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Mascot } from "@/components/Mascot";
+import { AnimatedMark } from "@/components/AnimatedMark";
 import { CLINIC, addDays, fmtLong, iso, startOfDay } from "@/lib/data";
 import { useBookings, useNow } from "@/lib/store";
 
@@ -148,7 +148,7 @@ export default function BookPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center py-6 text-center"
               >
-                <Mascot happy grow className="h-40 w-40" title="Happy tooth" />
+                <AnimatedMark className="h-40 w-40" />
                 <h2 className="mt-4 text-3xl">Request sent</h2>
                 <p className="mt-3 max-w-md text-ink-2">
                   {firstName}&apos;s visit is requested for <strong className="text-ink">{chosenDate && fmtLong(chosenDate)}</strong> at{" "}
