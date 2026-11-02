@@ -50,6 +50,24 @@ function tab(name) {
   return sh;
 }
 
+/** Sheets turns "2026-11-07" and "6:30 pm" into real dates and times; hand them back as the text the site expects */
+function txt(v, kind) {
+  if (v instanceof Date) {
+    const tz = Session.getScriptTimeZone();
+    if (kind === "date") return Utilities.formatDate(v, tz, "yyyy-MM-dd");
+    if (kind === "time") return Utilities.formatDate(v, tz, "h:mm a").toLowerCase();
+    return v.toISOString();
+  }
+  return String(v);
+}
+
+/** write one row as plain text, so Sheets leaves dates, times and phone numbers as typed */
+function put(sh, rowIndex, values) {
+  const r = sh.getRange(rowIndex, 1, 1, values.length);
+  r.setNumberFormat("@");
+  r.setValues([values]);
+}
+
 function rows(name) {
   const sh = tab(name);
   const n = sh.getLastRow() - 1;
@@ -62,12 +80,12 @@ function readBookings() {
     .filter((r) => r[0])
     .map((r) => ({
       id: String(r[0]),
-      createdAt: String(r[1]),
+      createdAt: txt(r[1]),
       child: String(r[2]),
       age: String(r[3]),
       reason: String(r[4]),
-      date: String(r[5]),
-      time: String(r[6]),
+      date: txt(r[5], "date"),
+      time: txt(r[6], "time"),
       parent: String(r[7]),
       phone: String(r[8]),
       notes: String(r[9]),
@@ -77,14 +95,14 @@ function readBookings() {
 function readDoses() {
   const doses = {};
   rows("Doses").forEach((r) => {
-    if (r[0] && r[5]) doses[String(r[0])] = String(r[5]);
+    if (r[0] && r[5]) doses[String(r[0])] = txt(r[5]);
   });
   return doses;
 }
 
 function addBooking(b) {
   const sh = tab("Bookings");
-  sh.appendRow([b.id, b.createdAt, b.child, b.age, b.reason, b.date, b.time, b.parent, b.phone, b.notes, "New"]);
+  put(sh, sh.getLastRow() + 1, [b.id, b.createdAt, b.child, b.age, b.reason, b.date, b.time, b.parent, b.phone, b.notes, "New"]);
   return { ok: true };
 }
 
@@ -107,8 +125,7 @@ function setDose(key, givenAt) {
   }
   const p = key.split("|"); // childId | medId | day | slot
   const row = [key, p[0], p[1], p[2], p[3], givenAt];
-  if (at > 0) sh.getRange(at, 1, 1, row.length).setValues([row]);
-  else sh.appendRow(row);
+  put(sh, at > 0 ? at : sh.getLastRow() + 1, row);
   return { ok: true };
 }
 
