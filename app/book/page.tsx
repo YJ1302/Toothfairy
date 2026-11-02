@@ -148,7 +148,7 @@ export default function BookPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center py-6 text-center"
               >
-                <AnimatedMark className="h-40 w-40" />
+                <AnimatedMark face mood="happy" className="h-40 w-40" />
                 <h2 className="mt-4 text-3xl">Request sent</h2>
                 <p className="mt-3 max-w-md text-ink-2">
                   {firstName}&apos;s visit is requested for <strong className="text-ink">{chosenDate && fmtLong(chosenDate)}</strong> at{" "}

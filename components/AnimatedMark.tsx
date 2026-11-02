@@ -24,7 +24,53 @@ const UNFOLD = { duration: 0.9, ease: [0.2, 0.9, 0.25, 1] as const };
  * The Tooth Fairy logo mark, animated: the wings unfold from the centre line,
  * the white lines draw in, the sparkle pops into place, then the wings keep a slow flutter.
  */
-export function AnimatedMark({ tilt = 0, className }: { tilt?: number; className?: string }) {
+type Mood = "watch" | "shy" | "happy";
+
+/** the two eyes, set on the tooth crown; they follow `look`, blink, and close or smile with `mood` */
+const EYE_X = [43, 57];
+const EYE_Y = 19.5;
+
+function Eyes({ look, mood }: { look: { x: number; y: number }; mood: Mood }) {
+  const dx = Math.max(-1, Math.min(1, look.x)) * 1.3;
+  const dy = Math.max(-1, Math.min(1, look.y)) * 0.9;
+  return (
+    <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 1.7 }}>
+      {EYE_X.map((x) => (
+        <g key={x}>
+          <motion.g animate={{ opacity: mood === "watch" ? 1 : 0, x: dx, y: dy }} transition={{ type: "spring", stiffness: 200, damping: 18 }}>
+            <motion.g
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              animate={{ scaleY: [1, 1, 0.1, 1] }}
+              transition={{ duration: 4.2, times: [0, 0.93, 0.96, 1], repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ellipse cx={x} cy={EYE_Y} rx={2.8} ry={3.6} fill="#2E2445" />
+              <circle cx={x + 1} cy={EYE_Y - 1.5} r={1} fill="#fff" />
+            </motion.g>
+          </motion.g>
+          <g fill="none" stroke="#2E2445" strokeWidth={1.5} strokeLinecap="round">
+            <motion.path d={`M${x - 2.6} ${EYE_Y + 1}q2.6 -3.6 5.2 0`} animate={{ opacity: mood === "happy" ? 1 : 0 }} transition={{ duration: 0.2 }} />
+            <motion.path d={`M${x - 2.6} ${EYE_Y - 0.6}q2.6 2.8 5.2 0`} animate={{ opacity: mood === "shy" ? 1 : 0 }} transition={{ duration: 0.2 }} />
+          </g>
+        </g>
+      ))}
+    </motion.g>
+  );
+}
+
+export function AnimatedMark({
+  tilt = 0,
+  className,
+  face = false,
+  look = { x: 0, y: 0 },
+  mood = "watch",
+}: {
+  tilt?: number;
+  className?: string;
+  /** add the eyes */
+  face?: boolean;
+  look?: { x: number; y: number };
+  mood?: Mood;
+}) {
   const id = useId().replace(/:/g, "");
   const flutter = { scaleX: [1, 0.93, 1] };
   const flutterT = { duration: 2.6, repeat: Infinity, ease: "easeInOut" as const, delay: 1.9 };
@@ -99,6 +145,8 @@ export function AnimatedMark({ tilt = 0, className }: { tilt?: number; className
           </motion.g>
         </g>
       </motion.g>
+
+      {face && <Eyes look={look} mood={mood} />}
 
       {/* the gift between the roots */}
       <motion.path

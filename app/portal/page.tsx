@@ -170,7 +170,7 @@ function Today({ child, now, log, toggle }: { child: Child; now: Date; log: Reco
             className="overflow-hidden"
           >
             <div className="mt-5 flex items-center gap-4 rounded-2xl bg-mint-bg p-4">
-              <AnimatedMark className="h-16 w-16 shrink-0" />
+              <AnimatedMark face mood="happy" className="h-16 w-16 shrink-0" />
               <p className="text-[0.97rem] text-[#1d5e45]">
                 All done for today. {CLINIC.doctorShort} can see that {first}&apos;s course is on track.
               </p>

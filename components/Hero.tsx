@@ -95,7 +95,7 @@ export function Hero() {
             animate={{ y: [0, -9, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
           >
-            <AnimatedMark tilt={look.x} className="h-full w-full drop-shadow-[0_18px_24px_rgba(106,75,184,0.2)]" />
+            <AnimatedMark face look={look} tilt={look.x} className="h-full w-full drop-shadow-[0_18px_24px_rgba(106,75,184,0.2)]" />
           </motion.div>
 
           <motion.div
